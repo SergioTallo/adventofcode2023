@@ -12,23 +12,6 @@ def check_color_count(matches: list, id, predefined_counts):
     return id
 
 
-def star_one(input, score: int, predefined_counts):
-    data = readlines(input)
-    for game in data:
-        pattern = r'(\d+)\s(\w+)'
-        id = int(game.split(':')[0].split(' ')[1].strip())
-        sets = game.split(':')[1]
-        matches = re.findall(pattern, sets)
-        score += check_color_count(matches, id, predefined_counts)
-    return score
-
-
-predefined_counts = {'red': 12, 'green': 13, 'blue': 14}
-assert star_one('test.txt', 0, predefined_counts) == 8, "The test score should be 8"
-
-print(f"Score 1: {star_one('input.txt', 0, predefined_counts)}")
-
-
 def check_min_count(matches: list):
     color_counts = {}
     for count, color in matches:
@@ -40,15 +23,24 @@ def check_min_count(matches: list):
         return reduce(mul, color_counts.values(), 1)
 
 
-def star_two(input, score: int):
+def star(number, input):
+    score = 0
+    predefined_counts = {'red': 12, 'green': 13, 'blue': 14}
     data = readlines(input)
     for game in data:
         pattern = r'(\d+)\s(\w+)'
+        id = int(game.split(':')[0].split(' ')[1].strip())
         sets = game.split(':')[1]
         matches = re.findall(pattern, sets)
-        score += check_min_count(matches)
+        if number == 1:
+            score += check_color_count(matches, id, predefined_counts)
+        elif number == 2:
+            score += check_min_count(matches)
     return score
 
 
-assert star_two('test.txt', 0) == 2286, "The test score should be 2286"
-print(f"Score 2: {star_two('input.txt', 0)}")
+assert star(1, 'test.txt') == 8, "The test score should be 8"
+print(f"Score 1: {star(1, 'input.txt')}")
+
+assert star(2, 'test.txt') == 2286, "The test score should be 2286"
+print(f"Score 2: {star(2, 'input.txt')}")
