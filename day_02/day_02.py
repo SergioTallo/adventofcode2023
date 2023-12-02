@@ -1,4 +1,4 @@
-from readlines import readlines
+from adventofcodeutils import readlines
 import re
 from functools import reduce
 from operator import mul
