@@ -4,7 +4,8 @@ from functools import reduce
 from operator import mul
 
 
-def check_color_count(matches: list, id, predefined_counts):
+def check_color_count(matches: list, id):
+    predefined_counts = {'red': 12, 'green': 13, 'blue': 14}
     for count, color in matches:
         count = int(count)
         if color in predefined_counts and count > predefined_counts[color]:
@@ -25,7 +26,6 @@ def check_min_count(matches: list):
 
 def star(number, input):
     score = 0
-    predefined_counts = {'red': 12, 'green': 13, 'blue': 14}
     data = readlines(input)
     for game in data:
         pattern = r'(\d+)\s(\w+)'
@@ -33,7 +33,7 @@ def star(number, input):
         sets = game.split(':')[1]
         matches = re.findall(pattern, sets)
         if number == 1:
-            score += check_color_count(matches, id, predefined_counts)
+            score += check_color_count(matches, id)
         elif number == 2:
             score += check_min_count(matches)
     return score
