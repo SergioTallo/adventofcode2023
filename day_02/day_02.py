@@ -29,8 +29,7 @@ def star(number, input):
     data = readlines(input)
     for game in data:
         pattern = r'(\d+)\s(\w+)'
-        id = int(game.split(':')[0].split(' ')[1].strip())
-        sets = game.split(':')[1]
+        id, sets = int(game.split(':')[0].split(' ')[1].strip()), game.split(':')[1].strip()
         matches = re.findall(pattern, sets)
         if number == 1:
             score += check_color_count(matches, id)
