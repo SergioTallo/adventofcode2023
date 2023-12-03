@@ -20,7 +20,6 @@ def check_neighbors(data: list, x: int, y: int, gear):
                     gear_found = True
                     gear_coord = coord_neighbors[neighbor]
                     return gear_found, gear_coord
-
     if gear:
         return gear_found, gear_coord
     else:
@@ -38,6 +37,16 @@ def append_number(nexto: bool, gear_bool: bool, gear_coord: tuple, starnumber: i
                 else:
                     numbers_gears[gear_coord].append(int(number))
 
+def score_for_star_2(numbers_gears: dict):
+    # Filter out the gears that have only one number
+    keys_with_two_unique_values = {key for key, values in numbers_gears.items() if len(values) == 2}
+    numbers_gears = {key: value for key, value in numbers_gears.items() if key in keys_with_two_unique_values}
+
+    # Compute the individual ratio of each gear and sum them up
+    score = 0
+    for key, value in numbers_gears.items():
+        score += reduce((lambda x, y: x * y), value)
+    return score
 
 def stars(starnumber: int, inputfile: str):
     data = readlines(inputfile)
@@ -72,16 +81,10 @@ def stars(starnumber: int, inputfile: str):
 
     if starnumber == 1:
         return sum(numbers_line)
-    elif starnumber == 2:
-        # Filter out the gears that have only one number
-        keys_with_two_unique_values = {key for key, values in numbers_gears.items() if len(values) == 2}
-        numbers_gears = {key: value for key, value in numbers_gears.items() if key in keys_with_two_unique_values}
 
-        # Compute the individual ratio of each gear and sum them up
-        score = 0
-        for key, value in numbers_gears.items():
-            score += reduce((lambda x, y: x * y), value)
-        return score
+    elif starnumber == 2:
+        return score_for_star_2(numbers_gears)
+
 
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
