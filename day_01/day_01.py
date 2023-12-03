@@ -1,5 +1,5 @@
 import os
-from adventofcodeutils import readlines, aoc_challenge
+from adventofcodeutils import aoc_challenge, measure_time
 
 
 def words_to_numbers(text, reversed=False):
@@ -21,6 +21,8 @@ def words_to_numbers(text, reversed=False):
 
     return text
 
+
+@measure_time
 def stars(starnumber, data):
     sum_of_values = 0
 
@@ -50,6 +52,7 @@ def stars(starnumber, data):
                             break
                     break
         return sum_of_values
+
 
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])

@@ -1,7 +1,7 @@
 import os
 from functools import reduce
 
-from adventofcodeutils import readlines, get_neighbors, aoc_challenge, measure_time
+from adventofcodeutils import get_neighbors, aoc_challenge, measure_time
 
 
 def check_neighbors(data: list, x: int, y: int, gear):

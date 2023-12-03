@@ -1,4 +1,4 @@
-from adventofcodeutils import readlines, download_input, aoc_challenge
+from adventofcodeutils import aoc_challenge, measure_time
 import os
 import re
 from functools import reduce
@@ -25,6 +25,7 @@ def check_min_count(matches: list):
         return reduce(mul, color_counts.values(), 1)
 
 
+@measure_time
 def stars(number, data):
     score = 0
     for game in data:

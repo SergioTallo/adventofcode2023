@@ -139,7 +139,6 @@ class aoc_challenge:
             self.data_test1 = readlines(self.test_file1)
             self.data_test2 = readlines(self.test_file2)
         except FileNotFoundError:
-            print(f"File not found.")
             self.data_input = None
             self.data_test1 = None
             self.data_test2 = None
