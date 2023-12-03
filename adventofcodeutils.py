@@ -102,6 +102,14 @@ class aoc_challenge():
         download_input(self.year, self.day, self.cookie_file_path)
 
     def test(self, func_1, func_2, value_1, value_2):
+        """
+        Test the challenge
+        :param func_1: Function to test for star 1
+        :param func_2: Function to test for star 2
+        :param value_1: Value to test for star 1
+        :param value_2: Value to test for star 2
+        :return: None
+        """
         print("############## Tests ##############\n")
         print(f"Testing start 1, day {self.day}...")
         assert func_1 == value_1, f"Star one failed, should be {value_1} but is {func_1}"
@@ -111,6 +119,12 @@ class aoc_challenge():
         print("Test 2 passed\n")
 
     def challenge(self, func_1, func_2):
+        """
+        Run the challenge
+        :param func_1: Function to run for star 1
+        :param func_2: Function to run for star 2
+        :return: None
+        """
         print("############## Challenge ##############\n")
         print(f"Score 1: {func_1}")
         print(f"Score 2: {func_2}")
