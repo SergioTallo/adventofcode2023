@@ -91,7 +91,6 @@ class aoc_challenge():
 
     :param day: day of the challenge
     :param year: year of the challenge
-    :param cookie_file_path: filepath to read personal session cookie in string format
     :method test: test the challenge
     :method challenge: run the challenge
     """
