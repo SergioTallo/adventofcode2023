@@ -1,7 +1,7 @@
 def readlines(input_file: str) -> list:
     """
     Read each line of text file and return a list of strings containing the lines of input file
-    :param input_file: input file to read in string format
+    :param input_file: filepath to read in string format
     :return: list of strings containing the lines of input file
     """
     # Read each line of text file
@@ -9,12 +9,13 @@ def readlines(input_file: str) -> list:
         data = file.read().splitlines()
     return data
 
+
 def get_neighbors(data: list, x: int, y: int, return_coords: bool = False):
     """ Store neighbors of a given coordinate in a list and return it
     :param data: list of strings containing the lines of input file
     :param x: x coordinate
     :param y: y coordinate
-    :param neighbor_coord: if True, return also a dictionary with the coordinates of the neighbors
+    :param return_coords: if True, return also a dictionary with the coordinates of the neighbors
     :return: list of neighbors
     """
     neighbors = []
