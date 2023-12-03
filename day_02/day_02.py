@@ -40,14 +40,7 @@ def stars(number, input):
 
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
-    challenge_2 = aoc_challenge(day, 2023)
-
-    challenge_2.test(stars(1, 'test.txt'),
-                     stars(2, 'test.txt'),
-                     8, 2286)
-
-    challenge_2.challenge(stars(1, f'input_day{day}.txt'),
-                          stars(2, f'input_day{day}.txt'))
+    aoc_challenge(day, 2023, 8, 2286, stars)
 
 
 if __name__ == "__main__":

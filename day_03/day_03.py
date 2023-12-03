@@ -1,5 +1,6 @@
 import os
 from functools import reduce
+
 from adventofcodeutils import readlines, get_neighbors, aoc_challenge
 
 
@@ -37,6 +38,7 @@ def append_number(nexto: bool, gear_bool: bool, gear_coord: tuple, starnumber: i
                 else:
                     numbers_gears[gear_coord].append(int(number))
 
+
 def score_for_star_2(numbers_gears: dict):
     # Filter out the gears that have only one number
     keys_with_two_unique_values = {key for key, values in numbers_gears.items() if len(values) == 2}
@@ -47,6 +49,7 @@ def score_for_star_2(numbers_gears: dict):
     for key, value in numbers_gears.items():
         score += reduce((lambda x, y: x * y), value)
     return score
+
 
 def stars(starnumber: int, inputfile: str):
     data = readlines(inputfile)
@@ -69,7 +72,7 @@ def stars(starnumber: int, inputfile: str):
                         gear_bool = check[0]
                         gear_coord = check[1]
             elif data[i][j - 1].isdigit():
-                append_number(nexto, gear_bool,gear_coord,starnumber, number,numbers_line,numbers_gears)
+                append_number(nexto, gear_bool, gear_coord, starnumber, number, numbers_line, numbers_gears)
                 number = ''
                 nexto = False
                 gear_bool = False
@@ -88,14 +91,7 @@ def stars(starnumber: int, inputfile: str):
 
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
-    challenge_3 = aoc_challenge(day, 2023)
-
-    challenge_3.test(stars(1, 'test.txt'),
-                     stars(2, 'test.txt'),
-                     4361, 467835)
-
-    challenge_3.challenge(stars(1, f'input_day{day}.txt'),
-                          stars(2, f'input_day{day}.txt'))
+    aoc_challenge(day, 2023, 4361, 467835, stars)
 
 
 if __name__ == "__main__":
