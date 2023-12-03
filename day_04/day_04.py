@@ -1,10 +1,13 @@
 import os
+from adventofcodeutils import aoc_challenge, measure_time
 
-from adventofcodeutils import aoc_challenge
 
-
-def stars(starnumber: int, inputfile: str):
-    pass
+@measure_time
+def stars(starnumber: int, data: list):
+    if starnumber == 1:
+        pass
+    elif starnumber == 2:
+        pass
 
 
 def main():

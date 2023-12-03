@@ -25,9 +25,8 @@ def check_min_count(matches: list):
         return reduce(mul, color_counts.values(), 1)
 
 
-def stars(number, input):
+def stars(number, data):
     score = 0
-    data = readlines(input)
     for game in data:
         pattern = r'(\d+)\s(\w+)'
         id, sets = int(game.split(':')[0].split(' ')[1].strip()), game.split(':')[1].strip()

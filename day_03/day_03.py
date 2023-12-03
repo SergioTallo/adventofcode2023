@@ -1,7 +1,7 @@
 import os
 from functools import reduce
 
-from adventofcodeutils import readlines, get_neighbors, aoc_challenge
+from adventofcodeutils import readlines, get_neighbors, aoc_challenge, measure_time
 
 
 def check_neighbors(data: list, x: int, y: int, gear):
@@ -50,10 +50,8 @@ def score_for_star_2(numbers_gears: dict):
         score += reduce((lambda x, y: x * y), value)
     return score
 
-
-def stars(starnumber: int, inputfile: str):
-    data = readlines(inputfile)
-
+@measure_time
+def stars(starnumber: int, data: list):
     numbers_line = []
     numbers_gears = {}
     for i, line in enumerate(data):

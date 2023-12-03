@@ -21,8 +21,7 @@ def words_to_numbers(text, reversed=False):
 
     return text
 
-def stars(starnumber, inputfile):
-    data = readlines(inputfile)
+def stars(starnumber, data):
     sum_of_values = 0
 
     if starnumber == 1:

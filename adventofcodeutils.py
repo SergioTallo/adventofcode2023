@@ -1,5 +1,7 @@
+import functools
 import os
 import requests
+import time
 
 
 def download_input(year: int, day: int, cookie_file_path: str):
@@ -10,25 +12,24 @@ def download_input(year: int, day: int, cookie_file_path: str):
     :param cookie_file_path: filepath to read in string format
     :return: None
     """
-    if not os.path.exists(f'input_day{day}.txt'):
-        session_cookie = ''
-        if os.path.exists(cookie_file_path):
-            with open(cookie_file_path, 'r') as file:
-                session_cookie = file.read().strip()
-        else:
-            print("Session cookie file not found.")
+    session_cookie = ''
+    if os.path.exists(cookie_file_path):
+        with open(cookie_file_path, 'r') as file:
+            session_cookie = file.read().strip()
+    else:
+        print("Session cookie file not found.")
 
-        # Replace 'YOUR_SESSION_COOKIE' with your session cookie from Advent of Code website
-        cookies = {'session': session_cookie}
+    # Replace 'YOUR_SESSION_COOKIE' with your session cookie from Advent of Code website
+    cookies = {'session': session_cookie}
 
-        url = f'https://adventofcode.com/{year}/day/{day}/input'
-        response = requests.get(url, cookies=cookies)
+    url = f'https://adventofcode.com/{year}/day/{day}/input'
+    response = requests.get(url, cookies=cookies)
 
-        if response.status_code == 200:
-            with open(f'input_day{day}.txt', 'w') as file:
-                file.write(response.text)
-        else:
-            print(f"Failed to download input for day {day}. Status code: {response.status_code}")
+    if response.status_code == 200:
+        with open(f'input_day{day}.txt', 'w') as file:
+            file.write(response.text)
+    else:
+        print(f"Failed to download input for day {day}. Status code: {response.status_code}")
 
 
 def readlines(input_file: str) -> list:
@@ -85,6 +86,30 @@ def get_neighbors(data: list, x: int, y: int, return_coords: bool = False):
         return neighbors
 
 
+def measure_time(func):
+    """
+    Measure the execution time of a function
+    :param func: Function to measure
+    :return: wrapper function
+    """
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        """
+        Wrapper function
+        :param args: arguments
+        :param kwargs: keyword arguments
+        :return: result of the function
+        """
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        execution_time = end_time - start_time
+        print(f"Execution time for '{func.__name__}': {execution_time} seconds")
+        return result
+
+    return wrapper
+
+
 class aoc_challenge:
     """
     Advent of Code challenge class
@@ -105,9 +130,19 @@ class aoc_challenge:
         self.value_1 = value_1
         self.value_2 = value_2
 
-        current_directory = os.path.abspath(os.path.dirname(__file__))
-        self.cookie_file_path = os.path.join(current_directory, 'session_cookie.txt')
-        download_input(self.year, self.day, self.cookie_file_path)
+        try:
+            if not os.path.exists(f'input_day{day}.txt'):
+                current_directory = os.path.abspath(os.path.dirname(__file__))
+                self.cookie_file_path = os.path.join(current_directory, 'session_cookie.txt')
+                download_input(self.year, self.day, self.cookie_file_path)
+            self.data_input = readlines(f'input_day{self.day}.txt')
+            self.data_test1 = readlines(self.test_file1)
+            self.data_test2 = readlines(self.test_file2)
+        except FileNotFoundError:
+            print(f"File not found.")
+            self.data_input = None
+            self.data_test1 = None
+            self.data_test2 = None
 
         self.test()
         self.challenge()
@@ -119,11 +154,11 @@ class aoc_challenge:
         """
         print("\n############## Tests ##############\n")
         print(f"Testing star one, day {self.day}...")
-        assert self.function(1, self.test_file1) == self.value_1, \
+        assert self.function(1, self.data_test1) == self.value_1, \
             f"Star one failed, should be {self.value_1} but is {self.function(1, self.test_file1)}"
         print("Test 1 passed")
         print(f"Testing star two, day {self.day}...")
-        assert self.function(2, self.test_file2) == self.value_2, \
+        assert self.function(2, self.data_test2) == self.value_2, \
             f"Star two failed, should be {self.value_2} but is {self.function(2, self.test_file2)}"
         print("Test 2 passed")
 
@@ -133,5 +168,5 @@ class aoc_challenge:
         :return: None
         """
         print("\n############## Challenge ##############\n")
-        print(f"Score 1: {self.function(1, f'input_day{self.day}.txt')}")
-        print(f"Score 2: {self.function(2, f'input_day{self.day}.txt')}")
+        print(f"Score 1: {self.function(1, self.data_input)}")
+        print(f"Score 2: {self.function(2, self.data_input)}")
