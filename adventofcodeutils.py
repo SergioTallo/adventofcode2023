@@ -94,42 +94,44 @@ class aoc_challenge:
     :method test: test the challenge
     :method challenge: run the challenge
     """
-    def __init__(self, day: int, year: int, value_1: int, value_2: int, function, test_file1 = 'test.txt', test_file2 = 'test.txt'):
+
+    def __init__(self, day: int, year: int, value_1: int, value_2: int, function, test_file1='test.txt',
+                 test_file2='test.txt'):
         self.day = day
         self.year = year
+        self.function = function
+        self.test_file1 = test_file1
+        self.test_file2 = test_file2
+        self.value_1 = value_1
+        self.value_2 = value_2
+
         current_directory = os.path.abspath(os.path.dirname(__file__))
         self.cookie_file_path = os.path.join(current_directory, 'session_cookie.txt')
         download_input(self.year, self.day, self.cookie_file_path)
-        self.test(function(1, test_file1),
-                  function(2, test_file2),
-                  value_1, value_2)
-        self.challenge(function(1, f'input_day{self.day}.txt'),
-                       function(2, f'input_day{self.day}.txt'))
 
-    def test(self, func_1, func_2, value_1, value_2):
+        self.test()
+        self.challenge()
+
+    def test(self):
         """
         Test the challenge
-        :param func_1: Function to test for star 1
-        :param func_2: Function to test for star 2
-        :param value_1: Value to test for star 1
-        :param value_2: Value to test for star 2
         :return: None
         """
         print("\n############## Tests ##############\n")
-        print(f"Testing start 1, day {self.day}...")
-        assert func_1 == value_1, f"Star one failed, should be {value_1} but is {func_1}"
+        print(f"Testing star one, day {self.day}...")
+        assert self.function(1, self.test_file1) == self.value_1, \
+            f"Star one failed, should be {self.value_1} but is {self.function(1, self.test_file1)}"
         print("Test 1 passed")
-        print(f"Testing start 2, day {self.day}...")
-        assert func_2 == value_2, f"Star two failed, should be {value_2} but is {func_2}"
+        print(f"Testing star two, day {self.day}...")
+        assert self.function(2, self.test_file2) == self.value_2, \
+            f"Star two failed, should be {self.value_2} but is {self.function(2, self.test_file2)}"
         print("Test 2 passed")
 
-    def challenge(self, func_1, func_2):
+    def challenge(self):
         """
         Run the challenge
-        :param func_1: Function to run for star 1
-        :param func_2: Function to run for star 2
         :return: None
         """
         print("\n############## Challenge ##############\n")
-        print(f"Score 1: {func_1}")
-        print(f"Score 2: {func_2}")
+        print(f"Score 1: {self.function(1, f'input_day{self.day}.txt')}")
+        print(f"Score 2: {self.function(2, f'input_day{self.day}.txt')}")
