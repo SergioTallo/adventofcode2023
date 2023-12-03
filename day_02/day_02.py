@@ -1,4 +1,5 @@
-from adventofcodeutils import readlines
+from adventofcodeutils import readlines, download_input, aoc_challenge
+import os
 import re
 from functools import reduce
 from operator import mul
@@ -24,7 +25,7 @@ def check_min_count(matches: list):
         return reduce(mul, color_counts.values(), 1)
 
 
-def star(number, input):
+def stars(number, input):
     score = 0
     data = readlines(input)
     for game in data:
@@ -37,9 +38,19 @@ def star(number, input):
             score += check_min_count(matches)
     return score
 
+def main():
+    day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
+    cookie_file_path = '/Users/sergiotallotorres/PycharmProjects/adventofcode2023/session_cookie.txt'
 
-assert star(1, 'test.txt') == 8, "The test score should be 8"
-print(f"Score 1: {star(1, 'input.txt')}")
+    challenge_2 = aoc_challenge(day, 2023, cookie_file_path)
 
-assert star(2, 'test.txt') == 2286, "The test score should be 2286"
-print(f"Score 2: {star(2, 'input.txt')}")
+    challenge_2.test(stars(1, 'test.txt'),
+                     stars(2, 'test.txt'),
+                     8, 2286)
+
+    challenge_2.challenge(stars(1, f'input_day{day}.txt'),
+                          stars(2, f'input_day{day}.txt'))
+
+
+if __name__ == "__main__":
+    main()

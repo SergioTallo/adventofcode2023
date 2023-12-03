@@ -1,22 +1,6 @@
-from adventofcodeutils import readlines
+import os
+from adventofcodeutils import readlines, aoc_challenge
 
-data = readlines('input.txt')
-
-# First star
-
-sum_of_values = 0
-for line in data:
-    for char in line:
-        if char.isdecimal():
-            for char2 in reversed(line):
-                if char2.isdecimal():
-                    sum_of_values += int((f"{char}{char2}"))
-                    break
-            break
-
-print(f"Sum of values (first star): {sum_of_values}")
-
-# Second star
 
 def words_to_numbers(text, reversed=False):
     words_to_nums = {
@@ -37,20 +21,50 @@ def words_to_numbers(text, reversed=False):
 
     return text
 
-sum_of_values = 0
+def stars(starnumber, inputfile):
+    data = readlines(inputfile)
+    sum_of_values = 0
 
-for line in data:
-    line = line.strip()
-
-    line_n = words_to_numbers(line)
-    line_r = words_to_numbers(line, reversed=True)
-
-    for char in line_n:
-        if char.isdecimal():
-            for char2 in reversed(line_r):
-                if char2.isdecimal():
-                    sum_of_values += int((f"{char}{char2}"))
+    if starnumber == 1:
+        for line in data:
+            for char in line:
+                if char.isdecimal():
+                    for char2 in reversed(line):
+                        if char2.isdecimal():
+                            sum_of_values += int(f"{char}{char2}")
+                            break
                     break
-            break
+        return sum_of_values
 
-print(f"Sum of values (second star): {sum_of_values}")
+    elif starnumber == 2:
+        for line in data:
+            line = line.strip()
+
+            line_n = words_to_numbers(line)
+            line_r = words_to_numbers(line, reversed=True)
+
+            for char in line_n:
+                if char.isdecimal():
+                    for char2 in reversed(line_r):
+                        if char2.isdecimal():
+                            sum_of_values += int(f"{char}{char2}")
+                            break
+                    break
+        return sum_of_values
+
+def main():
+    day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
+    cookie_file_path = '/Users/sergiotallotorres/PycharmProjects/adventofcode2023/session_cookie.txt'
+
+    challenge_1 = aoc_challenge(day, 2023, cookie_file_path)
+
+    challenge_1.test(stars(1, 'test_1.txt'),
+                     stars(2, 'test_2.txt'),
+                     142, 281)
+
+    challenge_1.challenge(stars(1, f'input_day{day}.txt'),
+                          stars(2, f'input_day{day}.txt'))
+
+
+if __name__ == "__main__":
+    main()

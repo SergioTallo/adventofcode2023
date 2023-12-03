@@ -1,5 +1,6 @@
+import os
 from functools import reduce
-from adventofcodeutils import readlines, get_neighbors
+from adventofcodeutils import readlines, get_neighbors, aoc_challenge
 
 
 def check_neighbors(data: list, x: int, y: int, gear):
@@ -82,8 +83,19 @@ def stars(starnumber: int, inputfile: str):
             score += reduce((lambda x, y: x * y), value)
         return score
 
+def main():
+    day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
+    cookie_file_path = '/Users/sergiotallotorres/PycharmProjects/adventofcode2023/session_cookie.txt'
 
-assert stars(1, 'test.txt') == 4361, "Star one failed, should be 4361"
-print(f"Score 1: {stars(1, 'input.txt')}")
-assert stars(2, 'test.txt') == 467835, "Star two failed, should be 467835"
-print(f"Score 2: {stars(2, 'input.txt')}")
+    challenge_3 = aoc_challenge(day, 2023, cookie_file_path)
+
+    challenge_3.test(stars(1, 'test.txt'),
+                     stars(2, 'test.txt'),
+                     4361, 467835)
+
+    challenge_3.challenge(stars(1, f'input_day{day}.txt'),
+                          stars(2, f'input_day{day}.txt'))
+
+
+if __name__ == "__main__":
+    main()
