@@ -5,31 +5,42 @@ from adventofcodeutils import readlines, get_neighbors
 def check_neighbors(data: list, x: int, y: int, gear):
     gear_found = False
     gear_coord = (0, 0)
-    coord_neighbors = {}
 
-    if gear:
-        neighbors_ = get_neighbors(data, x, y, True)
-        neighbors = neighbors_[0]
-        coord_neighbors = neighbors_[1]
-    else:
-        neighbors = get_neighbors(data, x, y, False)
+    neighbors_ = get_neighbors(data, x, y, True)
+    neighbors = neighbors_[0]
+    coord_neighbors = neighbors_[1]
 
     for neighbor in neighbors:
         if neighbor != '.' and not neighbor.isdigit() and not neighbor.isalpha():
             if not gear:
                 return True
-        if neighbor == '*':
-            gear_found = True
-            gear_coord = coord_neighbors[neighbor]
+            else:
+                if neighbor == '*':
+                    gear_found = True
+                    gear_coord = coord_neighbors[neighbor]
+                    return gear_found, gear_coord
 
     if gear:
         return gear_found, gear_coord
-    return False
+    else:
+        return False
 
+def append_number(number_bool: bool, nexto: bool, gear_bool: bool, gear_coord: tuple, starnumber: int, number: str,
+                  numbers_line: list, numbers_gears: dict):
+    if number_bool and nexto:
+        numbers_line.append(int(number))
+        if starnumber == 2:
+            if gear_bool:
+                if gear_coord not in numbers_gears:
+                    numbers_gears[gear_coord] = []
+                numbers_gears[gear_coord].append(int(number))
+    number = ''
+    number_bool = False
+    nexto = False
+    gear_bool = False
+    gear_coord = (0, 0)
 
-def calculate_value_of_gears(gears):
-    pass
-
+    return number_bool, nexto, gear_bool, gear_coord, number, numbers_line, numbers_gears
 
 def stars(starnumber: int, inputfile: str):
     data = readlines(inputfile)
@@ -57,33 +68,11 @@ def stars(starnumber: int, inputfile: str):
 
                 # Take of the special care if the number is at the end of the line
                 if j == len(line) - 1:
-                    if number_bool and nexto:
-                        numbers_line.append(int(number))
-                        if starnumber == 2:
-                            if gear_bool:
-                                if gear_coord not in numbers_gears:
-                                    numbers_gears[gear_coord] = []
-                                numbers_gears[gear_coord].append(int(number))
-                    number = ''
-                    number_bool = False
-                    nexto = False
-                    gear_bool = False
-                    gear_coord = (0, 0)
-            else:
-                if number_bool:
-                    if nexto:
-                        numbers_line.append(int(number))
-                    if starnumber == 2:
-                        if gear_bool:
-                            if gear_coord not in numbers_gears:
-                                numbers_gears[gear_coord] = []
-                            numbers_gears[gear_coord].append(int(number))
+                    number_bool, nexto, gear_bool, gear_coord, number, numbers_line, numbers_gears = append_number(number_bool, nexto, gear_bool, gear_coord, starnumber, number, numbers_line, numbers_gears)
 
-                    number = ''
-                    number_bool = False
-                    nexto = False
-                    gear_bool = False
-                    gear_coord = (0, 0)
+            else:
+                number_bool, nexto, gear_bool, gear_coord, number, numbers_line, numbers_gears = append_number(number_bool, nexto, gear_bool, gear_coord, starnumber, number, numbers_line, numbers_gears)
+
     if starnumber == 1:
         return sum(numbers_line)
     elif starnumber == 2:

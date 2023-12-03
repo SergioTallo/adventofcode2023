@@ -45,6 +45,7 @@ def get_neighbors(data: list, x: int, y: int, return_coords: bool = False):
     if x < len(data[y]) - 1 and y < len(data) - 1:
         neighbors.append(data[y + 1][x + 1])
         neighbor_coord[data[y + 1][x + 1]] = (x + 1, y + 1)
+
     if return_coords:
         return neighbors, neighbor_coord
     else:
