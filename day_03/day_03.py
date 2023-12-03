@@ -88,9 +88,7 @@ def stars(starnumber: int, inputfile: str):
 
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
-    cookie_file_path = '/Users/sergiotallotorres/PycharmProjects/adventofcode2023/session_cookie.txt'
-
-    challenge_3 = aoc_challenge(day, 2023, cookie_file_path)
+    challenge_3 = aoc_challenge(day, 2023)
 
     challenge_3.test(stars(1, 'test.txt'),
                      stars(2, 'test.txt'),

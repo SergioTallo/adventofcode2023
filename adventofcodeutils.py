@@ -95,10 +95,11 @@ class aoc_challenge():
     :method test: test the challenge
     :method challenge: run the challenge
     """
-    def __init__(self, day: int, year: int, cookie_file_path: str):
+    def __init__(self, day: int, year: int):
         self.day = day
         self.year = year
-        self.cookie_file_path = cookie_file_path
+        current_directory = os.path.abspath(os.path.dirname(__file__))
+        self.cookie_file_path = os.path.join(current_directory, 'session_cookie.txt')
         download_input(self.year, self.day, self.cookie_file_path)
 
     def test(self, func_1, func_2, value_1, value_2):
