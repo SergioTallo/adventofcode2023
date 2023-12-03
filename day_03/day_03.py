@@ -1,4 +1,5 @@
 from functools import reduce
+
 from adventofcodeutils import readlines, get_neighbors
 
 
@@ -25,22 +26,18 @@ def check_neighbors(data: list, x: int, y: int, gear):
     else:
         return False
 
-def append_number(number_bool: bool, nexto: bool, gear_bool: bool, gear_coord: tuple, starnumber: int, number: str,
+
+def append_number(nexto: bool, gear_bool: bool, gear_coord: tuple, starnumber: int, number: str,
                   numbers_line: list, numbers_gears: dict):
-    if number_bool and nexto:
+    if nexto:
         numbers_line.append(int(number))
         if starnumber == 2:
             if gear_bool:
                 if gear_coord not in numbers_gears:
-                    numbers_gears[gear_coord] = []
-                numbers_gears[gear_coord].append(int(number))
-    number = ''
-    number_bool = False
-    nexto = False
-    gear_bool = False
-    gear_coord = (0, 0)
+                    numbers_gears[gear_coord] = [int(number)]
+                else:
+                    numbers_gears[gear_coord].append(int(number))
 
-    return number_bool, nexto, gear_bool, gear_coord, number, numbers_line, numbers_gears
 
 def stars(starnumber: int, inputfile: str):
     data = readlines(inputfile)
@@ -49,29 +46,29 @@ def stars(starnumber: int, inputfile: str):
     numbers_gears = {}
     for i, line in enumerate(data):
         number = ''
-        number_bool = False
         nexto = False
         gear_bool = False
         gear_coord = (0, 0)
         for j, char in enumerate(line):
             if char.isdigit():
                 number += char
-                number_bool = True
                 if not nexto:
                     nexto = check_neighbors(data, j, i, False)
                 if starnumber == 2:
                     if not gear_bool:
                         check = check_neighbors(data, j, i, True)
-                        if check[0]:
-                            gear_bool = True
-                            gear_coord = check[1]
+                        gear_bool = check[0]
+                        gear_coord = check[1]
+            elif data[i][j - 1].isdigit():
+                append_number(nexto, gear_bool,gear_coord,starnumber, number,numbers_line,numbers_gears)
+                number = ''
+                nexto = False
+                gear_bool = False
+                gear_coord = (0, 0)
 
-                # Take of the special care if the number is at the end of the line
-                if j == len(line) - 1:
-                    number_bool, nexto, gear_bool, gear_coord, number, numbers_line, numbers_gears = append_number(number_bool, nexto, gear_bool, gear_coord, starnumber, number, numbers_line, numbers_gears)
-
-            else:
-                number_bool, nexto, gear_bool, gear_coord, number, numbers_line, numbers_gears = append_number(number_bool, nexto, gear_bool, gear_coord, starnumber, number, numbers_line, numbers_gears)
+        # Take of the special care if the number is at the end of the line
+        if data[i][len(line) - 1].isdigit():
+            append_number(nexto, gear_bool, gear_coord, starnumber, number, numbers_line, numbers_gears)
 
     if starnumber == 1:
         return sum(numbers_line)
