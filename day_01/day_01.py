@@ -1,6 +1,6 @@
-# Read each line of text file
-with open('input.txt', 'r') as file:
-    data = file.readlines()
+from adventofcodeutils import readlines
+
+data = readlines('input.txt')
 
 # First star
 
@@ -13,6 +13,7 @@ for line in data:
                     sum_of_values += int((f"{char}{char2}"))
                     break
             break
+
 print(f"Sum of values (first star): {sum_of_values}")
 
 # Second star
