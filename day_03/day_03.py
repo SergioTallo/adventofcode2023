@@ -1,5 +1,4 @@
 from functools import reduce
-
 from adventofcodeutils import readlines, get_neighbors
 
 
