@@ -1,18 +1,37 @@
 import os
 from adventofcodeutils import aoc_challenge, measure_time
+import re
 
 
 @measure_time
 def stars(starnumber: int, data: list):
+    pile_scratchcards = [1 for _ in range(len(data))]
+    score = 0
+    for card_number, card in enumerate(data):
+        card = card.split(':')[1].strip()
+        # regex to find numbers and store the on list
+        pattern = r'(\d+)'
+        winning_numbers = re.findall(pattern, card.split('|')[0].strip())
+        owning_numbers = re.findall(pattern, card.split('|')[1].strip())
+        count = 0
+        for number in owning_numbers:
+            if number in winning_numbers:
+                count += 1
+        if starnumber == 1:
+            if count > 0:
+                score += 2 ** (count - 1)
+        elif starnumber == 2:
+            for i in range(count):
+                pile_scratchcards[card_number + i + 1] += 1 * pile_scratchcards[card_number]
     if starnumber == 1:
-        pass
+        return score
     elif starnumber == 2:
-        pass
+        return sum(pile_scratchcards)
 
 
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
-    aoc_challenge(day, 2023, None, None, stars)
+    aoc_challenge(day, 2023, 13, 30, stars)
 
 
 if __name__ == "__main__":
