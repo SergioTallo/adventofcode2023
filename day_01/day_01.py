@@ -1,5 +1,7 @@
 import os
-from adventofcodeutils import AocChallenge, measure_time
+from adventofcodeutils import measure_time
+from aoc_challenge import AocChallenge
+
 
 
 def words_to_numbers(text, reversed=False):
