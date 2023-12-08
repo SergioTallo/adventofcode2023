@@ -1,10 +1,10 @@
 import os
 from functools import reduce
-from adventofcodeutils import AocChallenge as OriginalAOCChallenge, measure_time
+from adventofcodeutils import measure_time
+from aoc_challenge import AocChallenge
 
-
-class NewAocChallenge(OriginalAOCChallenge):
-    def test(self, inputfile='test_1.txt'):
+class NewAocChallenge(AocChallenge):
+    def test(self, inputfile='test.txt'):
         print("\n############## Tests ##############\n")
         print(f"Testing star one, day {self.day}...")
         assert self.function(1, inputfile) == self.value_1, \
@@ -52,17 +52,48 @@ def stars(starnumber: int, inputfile: str):
     if starnumber == 1:
         return min(reduce(correspond, maps, int(seed)) for seed in seeds.split()[1:])
     elif starnumber == 2:
-        seed = 1
-        pairs = [(seeds.split()[1:][i], seeds.split()[1:][i + 1]) for i in range(0, len(seeds.split()[1:]), 2) if
-                 i + 1 < len(seeds.split()[1:])]
-        while True:
-            value = correspond_2(seed, maps)
-            for pair in pairs:
-                if value in range(int(pair[0]), int(pair[0]) + int(pair[1])):
-                    return seed
-            seed += 1
-            if seed % 10000 == 0:
-                print(seed)
+        pairs = [(int(seeds.split()[1:][i]), int(seeds.split()[1:][i]) + int(seeds.split()[1:][i + 1])) for i in
+                 range(0, len(seeds.split()[1:]), 2) if i + 1 < len(seeds.split()[1:])]
+
+        for instruction in maps:
+            _, *map_ = instruction.split('\n')
+            new_pairs = []
+            while pairs:
+                pair = pairs.pop()
+                append = True
+                for inst in map_:
+                    left = int(inst.split()[1])
+                    right = int(inst.split()[1]) + int(inst.split()[2])
+                    steps = int(inst.split()[0]) - left
+
+                    if left <= pair[0] and pair[1] <= right:
+                        new_pairs.append((pair[0] + steps, pair[1] + steps))
+                        append = False
+                        break
+                    elif pair[0] < left < pair[1] <= right:
+                        new_pairs.append((left + steps, pair[1] + steps))
+                        pairs.append((pair[0], left))
+                        append = False
+                        break
+                    elif left < pair[0] < right <= pair[1]:
+                        new_pairs.append((pair[0] + steps, right + steps))
+                        pairs.append((right, pair[1]))
+                        append = False
+                        break
+                    elif pair[0] < left and pair[1] > right:
+                        new_pairs.append((left + steps, right + steps))
+                        pairs.append((pair[0], left))
+                        pairs.append((right, pair[1]))
+                        append = False
+                        break
+                if append:
+                    new_pairs.append(pair)
+
+            pairs = new_pairs.copy()
+            new_pairs.clear()
+
+        return min(pair[0] for pair in pairs)
+
 
 
 def main():
