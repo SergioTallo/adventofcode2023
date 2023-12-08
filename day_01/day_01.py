@@ -1,5 +1,5 @@
 import os
-from adventofcodeutils import aoc_challenge, measure_time
+from adventofcodeutils import AocChallenge, measure_time
 
 
 def words_to_numbers(text, reversed=False):
@@ -56,7 +56,7 @@ def stars(starnumber, data):
 
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
-    aoc_challenge(day, 2023, 142, 281, stars, 'test_1.txt', 'test_2.txt')
+    AocChallenge(day, 2023, 142, 281, stars, 'test_1.txt', 'test_2.txt')
 
 
 if __name__ == "__main__":

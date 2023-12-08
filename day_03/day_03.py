@@ -1,7 +1,7 @@
 import os
 from functools import reduce
 
-from adventofcodeutils import get_neighbors, aoc_challenge, measure_time
+from adventofcodeutils import get_neighbors, AocChallenge, measure_time
 
 
 def check_neighbors(data: list, x: int, y: int, gear):
@@ -89,7 +89,7 @@ def stars(starnumber: int, data: list):
 
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
-    aoc_challenge(day, 2023, 4361, 467835, stars)
+    AocChallenge(day, 2023, 4361, 467835, stars)
 
 
 if __name__ == "__main__":

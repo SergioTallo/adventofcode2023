@@ -2,6 +2,18 @@ import functools
 import os
 import requests
 import time
+import re
+
+
+def get_numbers_in_string(string: str) -> list:
+    """
+    Get all numbers in a string and return them in a list
+    :param string: string to search for numbers
+    :return: list of numbers
+    """
+    pattern = r'(\d+)'
+    numbers = re.findall(pattern, string)
+    return [int(num) for num in numbers]
 
 
 def download_input(year: int, day: int, cookie_file_path: str):
@@ -92,6 +104,7 @@ def measure_time(func):
     :param func: Function to measure
     :return: wrapper function
     """
+
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         """
@@ -110,7 +123,7 @@ def measure_time(func):
     return wrapper
 
 
-class aoc_challenge:
+class AocChallenge:
     """
     Advent of Code challenge class
 

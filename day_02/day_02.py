@@ -1,4 +1,4 @@
-from adventofcodeutils import aoc_challenge, measure_time
+from adventofcodeutils import AocChallenge, measure_time
 import os
 import re
 from functools import reduce
@@ -40,7 +40,7 @@ def stars(number, data):
 
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
-    aoc_challenge(day, 2023, 8, 2286, stars)
+    AocChallenge(day, 2023, 8, 2286, stars)
 
 
 if __name__ == "__main__":
