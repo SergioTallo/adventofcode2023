@@ -95,7 +95,6 @@ def stars(starnumber: int, inputfile: str):
         return min(pair[0] for pair in pairs)
 
 
-
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
     NewAocChallenge(day, 2023, 35, 46, stars)
