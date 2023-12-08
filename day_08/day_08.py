@@ -27,8 +27,10 @@ def stars(starnumber: int, data: list):
         steps[step[0].strip()] = dest
 
     count = 0
-
     count_loop = []
+
+    # For star 2 brute force is going to take to long, we need to find when each starting position finds the end (in how
+    # many steps) and then find the least common multiple of all of them to find at which step they all meet.
 
     for i, step in enumerate(start_group):
         position = start_group[i]
