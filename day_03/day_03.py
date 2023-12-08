@@ -1,7 +1,8 @@
 import os
 from functools import reduce
 
-from adventofcodeutils import get_neighbors, AocChallenge, measure_time
+from adventofcodeutils import get_neighbors, measure_time
+from aoc_challenge import AocChallenge
 
 
 def check_neighbors(data: list, x: int, y: int, gear):
