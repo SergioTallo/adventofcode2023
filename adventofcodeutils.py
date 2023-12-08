@@ -121,3 +121,20 @@ def get_numbers_in_string(string: str) -> list:
     pattern = r'(\d+)'
     numbers = re.findall(pattern, string)
     return [int(num) for num in numbers]
+
+
+def map_character_count(string) -> dict:
+    """
+    Map the number of occurrences of each character in a string
+    :param string: string to map
+    :return: dictionary with the number of occurrences of each character
+    """
+    character_counts = {}
+
+    for character in string:
+        if character in character_counts:
+            character_counts[character] += 1
+        else:
+            character_counts[character] = 1
+
+    return character_counts
