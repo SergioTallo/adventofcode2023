@@ -21,7 +21,7 @@ def stars(starnumber: int, data: list):
     elif starnumber == 2:
         # Find the range of the hold time that beat the record
         x1, x2 = quadratic_equation_solve(get_numbers_in_string(data[0].replace(' ', ''))[0],
-                                          get_numbers_in_string(data[1].replace(' ', ''))[0])
+                                          get_numbers_in_string(data[1].replace(' ', ''))[0] + 1)
         return x2 - x1 + 1
 
 
