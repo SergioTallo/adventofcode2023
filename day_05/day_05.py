@@ -4,7 +4,7 @@ from adventofcodeutils import AocChallenge as OriginalAOCChallenge, measure_time
 
 
 class NewAocChallenge(OriginalAOCChallenge):
-    def test(self, inputfile='test.txt'):
+    def test(self, inputfile='test_1.txt'):
         print("\n############## Tests ##############\n")
         print(f"Testing star one, day {self.day}...")
         assert self.function(1, inputfile) == self.value_1, \
