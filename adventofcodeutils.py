@@ -118,7 +118,7 @@ def get_numbers_in_string(string: str) -> list:
     :param string: string to search for numbers
     :return: list of numbers
     """
-    pattern = r'(\d+)'
+    pattern = r'-?\d+'
     numbers = re.findall(pattern, string)
     return [int(num) for num in numbers]
 
