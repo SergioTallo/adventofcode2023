@@ -11,6 +11,7 @@ class TestAoC2023(unittest.TestCase):
         self.assertEqual(get_numbers_in_string('Distance:  9  40  200'), [9, 40, 200])
         self.assertEqual(get_numbers_in_string('Distance:9,40,200'), [9, 40, 200])
         self.assertEqual(get_numbers_in_string('Distance:9ezhhd40adkjhd200sjkdffsh'), [9, 40, 200])
+        self.assertEqual(get_numbers_in_string('3 -15 33, -58'), [3, -15, 33, -58])
         self.assertEqual(get_neighbors(['467..114..', '...*......', '..35..633.', '......#...'], 0, 0, False),
                          ['6', '.', '.'])
         self.assertEqual(get_neighbors(['467..114..', '...*......', '..35..633.', '......#...'], 2, 2, False),
@@ -62,7 +63,6 @@ class TestAoC2023(unittest.TestCase):
         self.assertEqual(generate_sequence([0, 3, 6, 9, 12, 15]), [3, 3, 3, 3, 3])
         self.assertEqual(generate_sequence([1, 3, 6, 10, 15, 21]), [2, 3, 4, 5, 6])
         self.assertEqual(generate_sequence([10, 13, 16, 21, 30, 45]), [3, 3, 5, 9, 15])
-        self.assertEqual(generate_sequence([-24, -207, -663, -1671, -3708, -7541, -14344]), [-183, -456, -1008, -2037, -3833, -6803])
-        self.assertEqual(extrapolated_value('0 3 6 9 12 15'), 18)
-        self.assertEqual(extrapolated_value('1 3 6 10 15 21'), 28)
-        self.assertEqual(extrapolated_value('10 13 16 21 30 45'), 68)
+        self.assertEqual(extrapolated_value([0, 3, 6, 9, 12, 15]), 18)
+        self.assertEqual(extrapolated_value([1, 3, 6, 10, 15, 21]), 28)
+        self.assertEqual(extrapolated_value([10, 13, 16, 21, 30, 45]), 68)

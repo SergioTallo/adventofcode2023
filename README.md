@@ -15,3 +15,5 @@ Day 6: Find a range of solution using quadratic equations
 Day 7: Poker game, custom sort function
 
 Day 8: LCM, follow instructions
+
+Day 9: Recursion, piramid of numbers
