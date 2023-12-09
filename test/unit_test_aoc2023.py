@@ -3,7 +3,7 @@ from adventofcodeutils import readlines, get_numbers_in_string, get_neighbors, m
 from day_01.day_01 import words_to_numbers
 from day_06.day_06 import quadratic_equation_solve
 from day_07.day_07 import get_cards_type, get_value_hand, order_hands
-
+from day_09.day_09 import generate_sequence, extrapolated_value
 
 class TestAoC2023(unittest.TestCase):
     def test_0(self):
@@ -54,6 +54,15 @@ class TestAoC2023(unittest.TestCase):
         self.assertEqual(get_cards_type('QQQJA'), (4, 1212121114))
         self.assertEqual(order_hands({'32T3K': '765', 'T55J5': '684', 'KK677': '28', 'KTJJT': '220', 'QQQJA': '483'}),
                          ['32T3K', 'KTJJT', 'KK677', 'T55J5', 'QQQJA'])
-        self.assertEqual(order_hands({'32T3K': '765', 'T55J5': '684', 'KK677': '28', 'KTJJT': '220', 'QQQJA': '483'}, True),
-                         ['32T3K', 'KK677', 'T55J5', 'QQQJA', 'KTJJT'])
+        self.assertEqual(
+            order_hands({'32T3K': '765', 'T55J5': '684', 'KK677': '28', 'KTJJT': '220', 'QQQJA': '483'}, True),
+            ['32T3K', 'KK677', 'T55J5', 'QQQJA', 'KTJJT'])
 
+    def test_9(self):
+        self.assertEqual(generate_sequence([0, 3, 6, 9, 12, 15]), [3, 3, 3, 3, 3])
+        self.assertEqual(generate_sequence([1, 3, 6, 10, 15, 21]), [2, 3, 4, 5, 6])
+        self.assertEqual(generate_sequence([10, 13, 16, 21, 30, 45]), [3, 3, 5, 9, 15])
+        self.assertEqual(generate_sequence([-24, -207, -663, -1671, -3708, -7541, -14344]), [-183, -456, -1008, -2037, -3833, -6803])
+        self.assertEqual(extrapolated_value('0 3 6 9 12 15'), 18)
+        self.assertEqual(extrapolated_value('1 3 6 10 15 21'), 28)
+        self.assertEqual(extrapolated_value('10 13 16 21 30 45'), 68)
