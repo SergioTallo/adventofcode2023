@@ -5,9 +5,8 @@ from aoc_challenge import AocChallenge
 
 def generate_sequence(starting_sequence: list) -> list:
     new_sequence = []
-    for i in range(len(starting_sequence)):
-        if i < len(starting_sequence) - 1:
-            new_sequence.append(starting_sequence[i + 1] - starting_sequence[i])
+    for i in range(len(starting_sequence) - 1):
+        new_sequence.append(starting_sequence[i + 1] - starting_sequence[i])
     return new_sequence
 
 
