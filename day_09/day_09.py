@@ -22,15 +22,9 @@ def extrapolated_value(original_sequence: list) -> int:
 @measure_time
 def stars(starnumber: int, data: list):
     if starnumber == 1:
-        new_numbers = []
-        for i, line in enumerate(data):
-            new_numbers.append(extrapolated_value(get_numbers_in_string(line)))
-        return sum(new_numbers)
+        return sum([extrapolated_value(get_numbers_in_string(line)) for line in data])
     elif starnumber == 2:
-        new_numbers = []
-        for i, line in enumerate(data):
-            new_numbers.append(extrapolated_value(get_numbers_in_string(line)[::-1]))
-        return sum(new_numbers)
+        return sum([extrapolated_value(get_numbers_in_string(line)[::-1]) for line in data])
 
 
 def main():
