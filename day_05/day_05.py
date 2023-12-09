@@ -3,6 +3,7 @@ from functools import reduce
 from adventofcodeutils import measure_time
 from aoc_challenge import AocChallenge
 
+
 class NewAocChallenge(AocChallenge):
     def test(self, inputfile='test.txt'):
         print("\n############## Tests ##############\n")
@@ -29,21 +30,6 @@ def correspond(val, maps):
         if src <= val < src + dist:
             return val + steps
     return val
-
-
-def correspond_2(val, maps):
-    new_val = val
-    for instruction in reversed(maps):
-        _, *map_ = instruction.split('\n')
-        for inst in map_:
-            left = int(inst.split()[1])
-            right = int(inst.split()[1]) + int(inst.split()[2])
-            steps = int(inst.split()[0]) - left
-            if (val - steps) in range(left, right):
-                new_val = val - steps
-                break
-        val = new_val
-    return new_val
 
 
 @measure_time
