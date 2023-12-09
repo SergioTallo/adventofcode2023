@@ -15,9 +15,12 @@ def extrapolated_value(original_sequence: list) -> int:
     subsequence_sequences = [original_sequence]
     new_sequence = generate_sequence(original_sequence)
     subsequence_sequences.append(new_sequence)
+    # Generate the piramide
     while not all(element == 0 for element in new_sequence):
         new_sequence = generate_sequence(new_sequence)
         subsequence_sequences.append(new_sequence)
+
+    # Calculate the value of the new element
     x = 0
     if all(element == 0 for element in new_sequence) and len(new_sequence) > 1:
         for i in range(len(subsequence_sequences)):
