@@ -7,7 +7,7 @@ def generate_sequence(starting_sequence: list) -> list:
     new_sequence = []
     for i in range(len(starting_sequence)):
         if i < len(starting_sequence) - 1:
-            new_sequence.append(starting_sequence[i+1] - starting_sequence[i])
+            new_sequence.append(starting_sequence[i + 1] - starting_sequence[i])
     return new_sequence
 
 
@@ -24,6 +24,7 @@ def extrapolated_value(original_sequence: list) -> int:
             x += subsequence_sequences[i][-1]
     return x
 
+
 @measure_time
 def stars(starnumber: int, data: list):
     if starnumber == 1:
@@ -36,7 +37,6 @@ def stars(starnumber: int, data: list):
         for i, line in enumerate(data):
             new_numbers.append(extrapolated_value(get_numbers_in_string(line)[::-1]))
         return sum(new_numbers)
-
 
 
 def main():
