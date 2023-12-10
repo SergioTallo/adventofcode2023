@@ -71,4 +71,3 @@ class TestAoC2023(unittest.TestCase):
 
     def test_10(self):
         self.assertEqual(find_starting_point(['..F7.', '.FJ|.', 'SJ.L7', '|F--J', 'LJ...']), (2, 0))
-        self.assertE
