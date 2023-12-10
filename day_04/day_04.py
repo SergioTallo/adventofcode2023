@@ -1,5 +1,5 @@
 import os
-from adventofcodeutils import measure_time
+from adventofcodeutils import measure_time, get_numbers_in_string
 from aoc_challenge import AocChallenge
 import re
 
@@ -11,10 +11,8 @@ def stars(starnumber: int, data: list):
     for card_number, card in enumerate(data):
         card = card.split(':')[1].strip()
 
-        # regex to find numbers and store the on list
-        pattern = r'(\d+)'
-        winning_numbers = re.findall(pattern, card.split('|')[0].strip())
-        owning_numbers = re.findall(pattern, card.split('|')[1].strip())
+        winning_numbers = get_numbers_in_string(card.split('|')[0].strip())
+        owning_numbers = get_numbers_in_string(card.split('|')[1].strip())
 
         count = len(set(winning_numbers) & set(owning_numbers))
 
