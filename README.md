@@ -17,3 +17,5 @@ Day 7: Poker game, custom sort function
 Day 8: LCM, follow instructions
 
 Day 9: Recursion, piramid of numbers
+
+Day: 10: check neigbors, check if tile inside a polygon

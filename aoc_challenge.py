@@ -13,7 +13,7 @@ class AocChallenge:
     """
 
     def __init__(self, day: int, year: int, value_1: int, value_2: int, function, test_file1='test.txt',
-                 test_file2='test.txt'):
+                 test_file2='test1.txt'):
         self.day = day
         self.year = year
         self.function = function

@@ -4,6 +4,8 @@ from day_01.day_01 import words_to_numbers
 from day_06.day_06 import quadratic_equation_solve
 from day_07.day_07 import get_cards_type, get_value_hand, order_hands
 from day_09.day_09 import generate_sequence, extrapolated_value
+from day_10.day_10 import find_starting_point
+
 
 class TestAoC2023(unittest.TestCase):
     def test_0(self):
@@ -66,3 +68,7 @@ class TestAoC2023(unittest.TestCase):
         self.assertEqual(extrapolated_value([0, 3, 6, 9, 12, 15]), 18)
         self.assertEqual(extrapolated_value([1, 3, 6, 10, 15, 21]), 28)
         self.assertEqual(extrapolated_value([10, 13, 16, 21, 30, 45]), 68)
+
+    def test_10(self):
+        self.assertEqual(find_starting_point(['..F7.', '.FJ|.', 'SJ.L7', '|F--J', 'LJ...']), (2, 0))
+        self.assertE
