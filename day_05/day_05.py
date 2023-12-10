@@ -5,7 +5,7 @@ from aoc_challenge import AocChallenge
 
 
 class NewAocChallenge(AocChallenge):
-    def test(self, inputfile='test1.txt'):
+    def test(self, inputfile='test.txt'):
         print("\n############## Tests ##############\n")
         print(f"Testing star one, day {self.day}...")
         assert self.function(1, inputfile) == self.value_1, \
@@ -32,12 +32,42 @@ def correspond(val, maps):
     return val
 
 
+def check_ranges(map_, pair, new_pairs, pairs, append):
+    for inst in map_:
+        left = int(inst.split()[1])
+        right = int(inst.split()[1]) + int(inst.split()[2])
+        steps = int(inst.split()[0]) - left
+
+        if left <= pair[0] and pair[1] <= right:
+            new_pairs.append((pair[0] + steps, pair[1] + steps))
+            append = False
+            return new_pairs, pairs, append
+        elif pair[0] < left < pair[1] <= right:
+            new_pairs.append((left + steps, pair[1] + steps))
+            pairs.append((pair[0], left))
+            append = False
+            return new_pairs, pairs, append
+        elif left < pair[0] < right <= pair[1]:
+            new_pairs.append((pair[0] + steps, right + steps))
+            pairs.append((right, pair[1]))
+            append = False
+            return new_pairs, pairs, append
+        elif pair[0] < left and pair[1] > right:
+            new_pairs.append((left + steps, right + steps))
+            pairs.append((pair[0], left))
+            pairs.append((right, pair[1]))
+            append = False
+            return new_pairs, pairs, append
+    return new_pairs, pairs, append
+
+
 @measure_time
 def stars(starnumber: int, inputfile: str):
     seeds, *maps = open(inputfile).read().split('\n\n')
     if starnumber == 1:
         return min(reduce(correspond, maps, int(seed)) for seed in seeds.split()[1:])
     elif starnumber == 2:
+
         pairs = [(int(seeds.split()[1:][i]), int(seeds.split()[1:][i]) + int(seeds.split()[1:][i + 1])) for i in
                  range(0, len(seeds.split()[1:]), 2) if i + 1 < len(seeds.split()[1:])]
 
@@ -47,31 +77,7 @@ def stars(starnumber: int, inputfile: str):
             while pairs:
                 pair = pairs.pop()
                 append = True
-                for inst in map_:
-                    left = int(inst.split()[1])
-                    right = int(inst.split()[1]) + int(inst.split()[2])
-                    steps = int(inst.split()[0]) - left
-
-                    if left <= pair[0] and pair[1] <= right:
-                        new_pairs.append((pair[0] + steps, pair[1] + steps))
-                        append = False
-                        break
-                    elif pair[0] < left < pair[1] <= right:
-                        new_pairs.append((left + steps, pair[1] + steps))
-                        pairs.append((pair[0], left))
-                        append = False
-                        break
-                    elif left < pair[0] < right <= pair[1]:
-                        new_pairs.append((pair[0] + steps, right + steps))
-                        pairs.append((right, pair[1]))
-                        append = False
-                        break
-                    elif pair[0] < left and pair[1] > right:
-                        new_pairs.append((left + steps, right + steps))
-                        pairs.append((pair[0], left))
-                        pairs.append((right, pair[1]))
-                        append = False
-                        break
+                new_pairs, pairs, append = check_ranges(map_, pair, new_pairs, pairs, append)
                 if append:
                     new_pairs.append(pair)
 
