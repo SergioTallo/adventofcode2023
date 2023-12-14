@@ -45,6 +45,15 @@ def readlines(input_file: str) -> list:
     return data
 
 
+def transform_to_list(data: list) -> list:
+    """
+    Transform a list of strings into a list of lists of characters
+    :param data:
+    :return:
+    """
+    return [list(line) for line in data]
+
+
 def get_neighbors(data: list, x: int, y: int, return_coords: bool = False, check_corners: bool = True, dictionary: bool = True):
     """ Store neighbors of a given coordinate in a list and return it
     :param dictionary: return the coordinates of the neighbors in a dictionary

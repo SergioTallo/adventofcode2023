@@ -1,10 +1,11 @@
 import unittest
-from adventofcodeutils import readlines, get_numbers_in_string, get_neighbors, map_character_count
+from adventofcodeutils import readlines, get_numbers_in_string, get_neighbors, map_character_count, transform_to_list
 from day_01.day_01 import words_to_numbers
 from day_06.day_06 import quadratic_equation_solve
 from day_07.day_07 import get_cards_type, get_value_hand, order_hands
 from day_09.day_09 import generate_sequence, extrapolated_value
-from day_10.day_10 import find_starting_point
+from day_10.day_10 import find_starting_point, check_pipe_connection
+from day_11.day_11 import expand_universe, shortest_path, find_galaxies
 
 
 class TestAoC2023(unittest.TestCase):
@@ -24,6 +25,8 @@ class TestAoC2023(unittest.TestCase):
                          (['.', '5', '.', '.', '.', '*', '.', '.'], {'*': (3, 1), '.': (3, 3), '5': (3, 2)}))
         self.assertEqual(map_character_count('AA3KE'), {'A': 2, '3': 1, 'K': 1, 'E': 1})
         self.assertEqual(map_character_count('AA3KK'), {'A': 2, '3': 1, 'K': 2})
+        self.assertEqual(transform_to_list(['...#.#...', '..###...#']), [['.', '.', '.', '#', '.', '#', '.', '.', '.'],
+                                                                         ['.', '.', '#', '#', '#', '.', '.', '.', '#']])
 
     def test_1(self):
         self.assertEqual(words_to_numbers('two1nine', False), '219')
@@ -70,4 +73,24 @@ class TestAoC2023(unittest.TestCase):
         self.assertEqual(extrapolated_value([10, 13, 16, 21, 30, 45]), 68)
 
     def test_10(self):
-        self.assertEqual(find_starting_point(['..F7.', '.FJ|.', 'SJ.L7', '|F--J', 'LJ...']), (2, 0))
+        self.assertEqual(find_starting_point(['..F7.', '.FJ|.', 'SJ.L7', '|F--J', 'LJ...']), (0, 2))
+        self.assertEqual(check_pipe_connection((['S', 'F', '.', 'F'], [(0, 2), (1, 1), (2, 2), (2, 3)]),
+                                               (0, 2), (1, 2), 'J'), ('F', (1, 1)))
+
+    def test_11(self):
+        self.assertEqual(expand_universe([['#', '.', '.'],
+                                          ['.', '.', '.'],
+                                          ['#', '.', '#']]), ([1], [1]))
+        self.assertEqual(expand_universe([['#', '.', '.', '#'],
+                                          ['.', '.', '.', '.'],
+                                          ['#', '.', '.', '#'],
+                                          ['.', '.', '.', '.'],
+                                          ['.', '.', '.', '.']]), ([1, 3, 4], [1, 2]))
+        self.assertEqual(find_galaxies([['#', '.', '.'],
+                                        ['.', '.', '.'],
+                                        ['#', '.', '#']]), {'1': (0, 0), '2': (2, 0), '3': (2, 2)})
+        self.assertEqual(shortest_path((0, 0), (2, 0), ([], []), 1), 2)
+        self.assertEqual(shortest_path((0, 0), (2, 2), ([], []), 1), 4)
+        self.assertEqual(shortest_path((0, 0), (2, 2), ([1], [1]), 1), 6)
+        self.assertEqual(shortest_path((0, 3), (8, 7), ([3, 7], [2, 5, 8]), 1), 15)
+        self.assertEqual(shortest_path((2, 0), (9, 6), ([3, 7], [2, 5, 8]), 1), 17)
