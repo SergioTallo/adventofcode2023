@@ -19,3 +19,5 @@ Day 8: LCM, follow instructions
 Day 9: Recursion, piramid of numbers
 
 Day: 10: check neigbors, check if tile inside a polygon
+
+Day 11: Manhattan distance, check coordinates and columns and rows of matrix
