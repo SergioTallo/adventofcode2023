@@ -48,7 +48,7 @@ def stars(starnumber: int, data: list):
     total_2 = 0
     for i, galaxy1 in enumerate(galaxies):
         for j, galaxy2 in enumerate(galaxies):
-            if galaxy1 != galaxy2 and i < j:
+            if i < j:
                 if starnumber == 1:
                     total_1 += shortest_path(galaxies[galaxy1], galaxies[galaxy2], expanded_universe, 1)
                 if starnumber == 2:
