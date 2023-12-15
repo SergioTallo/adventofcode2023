@@ -6,6 +6,7 @@ from day_07.day_07 import get_cards_type, get_value_hand, order_hands
 from day_09.day_09 import generate_sequence, extrapolated_value
 from day_10.day_10 import find_starting_point, check_pipe_connection
 from day_11.day_11 import expand_universe, shortest_path, find_galaxies
+from day_15.day_15 import calculate_hash, calculate_lens
 
 
 class TestAoC2023(unittest.TestCase):
@@ -94,3 +95,13 @@ class TestAoC2023(unittest.TestCase):
         self.assertEqual(shortest_path((0, 0), (2, 2), ([1], [1]), 1), 6)
         self.assertEqual(shortest_path((0, 3), (8, 7), ([3, 7], [2, 5, 8]), 1), 15)
         self.assertEqual(shortest_path((2, 0), (9, 6), ([3, 7], [2, 5, 8]), 1), 17)
+
+    def test_15(self):
+        self.assertEqual(calculate_hash('rn=1'), 30)
+        self.assertEqual(calculate_hash('cm-'), 253)
+        self.assertEqual(calculate_hash('qp=3'), 97)
+        self.assertEqual(calculate_hash('cm=2'), 47)
+        self.assertEqual(calculate_lens('rn=1'), (0, 'rn', 0, 1))
+        self.assertEqual(calculate_lens('cm-'), (0, 'cm', 1, 0))
+        self.assertEqual(calculate_lens('qp=3'), (1, 'qp', 0, 3))
+        self.assertEqual(calculate_lens('pc=4'), (3, 'pc', 0, 4))
