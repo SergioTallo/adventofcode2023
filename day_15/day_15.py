@@ -35,9 +35,9 @@ def calculate_focus_power(lens_box: dict) -> int:
 
 
 def place_lens(lens_box: dict, code: str) -> dict:
-    box, label, lens_type, focal_lenght = calculate_lens(code)
+    box, label, lens_type, focal_length = calculate_lens(code)
     if lens_type == 0:
-        lens_box[box][label] = focal_lenght
+        lens_box[box][label] = focal_length
     elif lens_type == 1:
         if label in lens_box[box]:
             lens_box[box].pop(label)
