@@ -7,6 +7,7 @@ from day_09.day_09 import generate_sequence, extrapolated_value
 from day_10.day_10 import find_starting_point, check_pipe_connection
 from day_11.day_11 import expand_universe, shortest_path, find_galaxies
 from day_15.day_15 import calculate_hash, calculate_lens
+from day_16.day_16 import inside_map, next_position
 
 
 class TestAoC2023(unittest.TestCase):
@@ -105,3 +106,34 @@ class TestAoC2023(unittest.TestCase):
         self.assertEqual(calculate_lens('cm-'), (0, 'cm', 1, 0))
         self.assertEqual(calculate_lens('qp=3'), (1, 'qp', 0, 3))
         self.assertEqual(calculate_lens('pc=4'), (3, 'pc', 0, 4))
+
+    def test_16(self):
+        map_ = [['.', '-', '/'], ['\\', '|', '.'], ['.', '/', '\\']]
+        self.assertEqual(inside_map(0, 0, map_), True)
+        self.assertEqual(inside_map(-1, 0, map_), False)
+        self.assertEqual(inside_map(0, -1, map_), False)
+        self.assertEqual(inside_map(3, 0, map_), False)
+        self.assertEqual(inside_map(0, 3, map_), False)
+        self.assertEqual(inside_map(2, 2, map_), True)
+        self.assertEqual(next_position(0, 0, (0, 1), [], map_), {(0, 1): (0, 1)})
+        self.assertEqual(next_position(0, 0, (1, 0), [], map_), {(1, 0): (1, 0)})
+        self.assertEqual(next_position(0, 0, (0, -1), [], map_), {})
+        self.assertEqual(next_position(0, 0, (-1, 0), [], map_), {})
+        self.assertEqual(next_position(0, 1, (0, 1), [], map_), {(0, 2): (0, 1)})
+        self.assertEqual(next_position(0, 1, (0, -1), [], map_), {(0, 0): (0, -1)})
+        self.assertEqual(next_position(0, 1, (1, 0), [], map_), {(0, 2): (0, 1), (0, 0): (0, -1)})
+        self.assertEqual(next_position(0, 1, (-1, 0), [], map_), {(0, 2): (0, 1), (0, 0): (0, -1)})
+        self.assertEqual(next_position(0, 2, (0, 1), [], map_), {})
+        self.assertEqual(next_position(0, 2, (0, -1), [], map_), {(1, 2): (1, 0)})
+        self.assertEqual(next_position(0, 2, (1, 0), [], map_), {(0, 1): (0, -1)})
+        self.assertEqual(next_position(0, 2, (-1, 0), [], map_), {})
+        self.assertEqual(next_position(2, 1, (-1, 0), [], map_), {(2, 2): (0, 1)})
+        self.assertEqual(next_position(1, 0, (0, 1), [], map_), {(2, 0): (1, 0)})
+        self.assertEqual(next_position(1, 0, (0, -1), [], map_), {(0, 0): (-1, 0)})
+        self.assertEqual(next_position(1, 0, (1, 0), [], map_), {(1, 1): (0, 1),})
+        self.assertEqual(next_position(1, 0, (-1, 0), [], map_), {})
+        self.assertEqual(next_position(1, 1, (0, 1), [], map_), {(0, 1): (-1, 0), (2, 1): (1, 0)})
+        self.assertEqual(next_position(1, 1, (0, -1), [], map_), {(0, 1): (-1, 0), (2, 1): (1, 0)})
+        self.assertEqual(next_position(1, 1, (1, 0), [], map_), {(2, 1): (1, 0)})
+        self.assertEqual(next_position(1, 1, (-1, 0), [], map_), {(0, 1): (-1, 0)})
+

@@ -22,10 +22,12 @@ Day: 10: check neigbors, check if tile inside a polygon
 
 Day 11: Manhattan distance, check coordinates and columns and rows of matrix
 
-Day 12:
+Day 12: 
 
 Day 13:
 
 Day 14:
 
 Day 15: Dictionaries as values of dictionary
+
+Day 16: BFS, 
