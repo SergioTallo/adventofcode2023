@@ -160,3 +160,21 @@ def map_character_count(string) -> dict:
             character_counts[character] = 1
 
     return character_counts
+
+
+def get_blocks(data: list) -> list:
+    """
+    Get blocks of data separated by empty lines
+    :param data: list of strings containing the lines of input file
+    :return: list of blocks of data
+    """
+    blocks = []
+    block = []
+    for line in data:
+        if line == '':
+            blocks.append(block)
+            block = []
+        else:
+            block.append(line)
+    blocks.append(block)
+    return blocks

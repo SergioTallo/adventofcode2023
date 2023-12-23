@@ -6,6 +6,7 @@ from day_07.day_07 import get_cards_type, get_value_hand, order_hands
 from day_09.day_09 import generate_sequence, extrapolated_value
 from day_10.day_10 import find_starting_point, check_pipe_connection
 from day_11.day_11 import expand_universe, shortest_path, find_galaxies
+from day_12.day_12 import num_of_arrangements
 from day_15.day_15 import calculate_hash, calculate_lens
 from day_16.day_16 import inside_map, next_position
 
@@ -97,6 +98,14 @@ class TestAoC2023(unittest.TestCase):
         self.assertEqual(shortest_path((0, 3), (8, 7), ([3, 7], [2, 5, 8]), 1), 15)
         self.assertEqual(shortest_path((2, 0), (9, 6), ([3, 7], [2, 5, 8]), 1), 17)
 
+    """
+    def test_12(self):
+        number_of_arrangements = [1, 4, 1, 1, 4, 10]
+        for i, line in enumerate(readlines('/Users/sergiotallotorres/PycharmProjects/adventofcode2023/day_12/test.txt')):
+            self.assertEqual(num_of_arrangements(line), number_of_arrangements[i])
+    """
+
+
     def test_15(self):
         self.assertEqual(calculate_hash('rn=1'), 30)
         self.assertEqual(calculate_hash('cm-'), 253)
@@ -115,25 +124,10 @@ class TestAoC2023(unittest.TestCase):
         self.assertEqual(inside_map(3, 0, map_), False)
         self.assertEqual(inside_map(0, 3, map_), False)
         self.assertEqual(inside_map(2, 2, map_), True)
-        self.assertEqual(next_position(0, 0, (0, 1), [], map_), {(0, 1): (0, 1)})
-        self.assertEqual(next_position(0, 0, (1, 0), [], map_), {(1, 0): (1, 0)})
-        self.assertEqual(next_position(0, 0, (0, -1), [], map_), {})
-        self.assertEqual(next_position(0, 0, (-1, 0), [], map_), {})
-        self.assertEqual(next_position(0, 1, (0, 1), [], map_), {(0, 2): (0, 1)})
-        self.assertEqual(next_position(0, 1, (0, -1), [], map_), {(0, 0): (0, -1)})
-        self.assertEqual(next_position(0, 1, (1, 0), [], map_), {(0, 2): (0, 1), (0, 0): (0, -1)})
-        self.assertEqual(next_position(0, 1, (-1, 0), [], map_), {(0, 2): (0, 1), (0, 0): (0, -1)})
-        self.assertEqual(next_position(0, 2, (0, 1), [], map_), {})
-        self.assertEqual(next_position(0, 2, (0, -1), [], map_), {(1, 2): (1, 0)})
-        self.assertEqual(next_position(0, 2, (1, 0), [], map_), {(0, 1): (0, -1)})
-        self.assertEqual(next_position(0, 2, (-1, 0), [], map_), {})
-        self.assertEqual(next_position(2, 1, (-1, 0), [], map_), {(2, 2): (0, 1)})
-        self.assertEqual(next_position(1, 0, (0, 1), [], map_), {(2, 0): (1, 0)})
-        self.assertEqual(next_position(1, 0, (0, -1), [], map_), {(0, 0): (-1, 0)})
-        self.assertEqual(next_position(1, 0, (1, 0), [], map_), {(1, 1): (0, 1),})
-        self.assertEqual(next_position(1, 0, (-1, 0), [], map_), {})
-        self.assertEqual(next_position(1, 1, (0, 1), [], map_), {(0, 1): (-1, 0), (2, 1): (1, 0)})
-        self.assertEqual(next_position(1, 1, (0, -1), [], map_), {(0, 1): (-1, 0), (2, 1): (1, 0)})
-        self.assertEqual(next_position(1, 1, (1, 0), [], map_), {(2, 1): (1, 0)})
-        self.assertEqual(next_position(1, 1, (-1, 0), [], map_), {(0, 1): (-1, 0)})
+        self.assertEqual(next_position(0, 0, (0, 1), [], map_), [((0, 1), (0, 1))])
+        self.assertEqual(next_position(0, 0, (1, 0), [], map_), [((1, 0), (1, 0))])
+        self.assertEqual(next_position(0, 0, (0, -1), [], map_), [])
+        self.assertEqual(next_position(0, 0, (-1, 0), [], map_), [])
+        self.assertEqual(next_position(0, 1, (0, 1), [], map_), [((0, 2), (0, 1))])
+        self.assertEqual(next_position(0, 1, (0, -1), [], map_), [((0, 0), (0, -1))])
 
