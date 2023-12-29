@@ -1,5 +1,6 @@
 import unittest
-from adventofcodeutils import readlines, get_numbers_in_string, get_neighbors, map_character_count, transform_to_list
+from adventofcodeutils import readlines, get_numbers_in_string, get_neighbors, map_character_count, transform_to_list, \
+    get_blocks
 from day_01.day_01 import words_to_numbers
 from day_06.day_06 import quadratic_equation_solve
 from day_07.day_07 import get_cards_type, get_value_hand, order_hands
@@ -7,6 +8,7 @@ from day_09.day_09 import generate_sequence, extrapolated_value
 from day_10.day_10 import find_starting_point, check_pipe_connection
 from day_11.day_11 import expand_universe, shortest_path, find_galaxies
 from day_12.day_12 import num_of_arrangements
+from day_13.day_13 import check_horizontal_lines
 from day_15.day_15 import calculate_hash, calculate_lens
 from day_16.day_16 import inside_map, next_position
 
@@ -105,6 +107,27 @@ class TestAoC2023(unittest.TestCase):
             self.assertEqual(num_of_arrangements(line), number_of_arrangements[i])
     """
 
+    def test_13(self):
+        self.assertEqual(
+            check_horizontal_lines(transform_to_list(get_blocks(['#...##..#', '#....#..#', '..##..###', '#####.##.',
+                                                                 '#####.##.', '..##..###', '#....#..#'])[0]), 1), 1)
+
+        self.assertEqual(
+            check_horizontal_lines(transform_to_list(get_blocks(['#.##..##.', '..#.##.#.', '##......#', '##......#',
+                                                                 '..#.##.#.', '..##..##.', '#.#.##.#.'])[0]), 0), 0)
+
+        self.assertEqual(
+            check_horizontal_lines(transform_to_list(get_blocks(['#...##..#', '#....#..#', '..##..###', '#####.##.',
+                                                                 '#####.##.', '..##..###', '#....#..#'])[0]), 0), 4)
+
+        self.assertEqual(
+            check_horizontal_lines([list(row) for row in zip(*transform_to_list(
+                get_blocks(['#.##..##.', '..#.##.#.', '##......#', '##......#',
+                            '..#.##.#', '..##..##.', '#.#.##.#.'])[0]))], 0), 5)
+
+        self.assertEqual(
+            check_horizontal_lines(transform_to_list(get_blocks(['#.##..##.', '..#.##.#.', '##......#', '##......#',
+                                                                 '..#.##.#.', '..##..##.', '#.#.##.#.'])[0]), 1), 3)
 
     def test_15(self):
         self.assertEqual(calculate_hash('rn=1'), 30)
@@ -130,4 +153,3 @@ class TestAoC2023(unittest.TestCase):
         self.assertEqual(next_position(0, 0, (-1, 0), [], map_), [])
         self.assertEqual(next_position(0, 1, (0, 1), [], map_), [((0, 2), (0, 1))])
         self.assertEqual(next_position(0, 1, (0, -1), [], map_), [((0, 0), (0, -1))])
-

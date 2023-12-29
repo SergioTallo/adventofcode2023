@@ -14,10 +14,10 @@ def check_differences(line1: list, line2: list) -> int:
 def check_horizontal_lines(data: list, max_difference: int) -> int:
     new_max_difference = max_difference
     for i in range(len(data) - 1):
-        if check_differences(data[i], data[i + 1]) <= max_difference:
+        if check_differences(data[i], data[i + 1]) == max_difference:
             if check_differences(data[i], data[i + 1]) != 0:
                 new_max_difference = 0
-            j = 0
+            j = 1
             while i + j + 1 <= len(data) - 1 and i - j >= 0:
                 if check_differences(data[i - j], data[i + j + 1]) > new_max_difference:
                     new_max_difference = max_difference
@@ -47,12 +47,13 @@ def stars(starnumber: int, data: list):
         if total == old_total:
             block_vertical = [list(row) for row in zip(*block_horizontal)]
             total += check_horizontal_lines(block_vertical, max_difference)
+    print(total)
     return total
 
 
 def main():
     day = int(os.path.basename(__file__).split('_')[1].split('.')[0])
-    AocChallenge(day, 2023, 405, 400, stars)
+    AocChallenge(day, 2023, 1006, 709, stars)
 
 
 if __name__ == "__main__":
